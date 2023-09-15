@@ -14,18 +14,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user){
+    public User createUser(User user) {
        return userRepository.save(user);
     }
 
     public User getUserById(Integer userId) throws UserException {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserException("Invalid User id"));
-        return user;
+         return userRepository.findById(userId).orElseThrow(() -> new UserException("Invalid User id"));
     }
 
     public List<User> getAllUser(){
-        List<User> userList = userRepository.findAll();
-        return userList;
+        return userRepository.findAll();
     }
 
     public User updateUser(User user,Integer userId) throws UserException {

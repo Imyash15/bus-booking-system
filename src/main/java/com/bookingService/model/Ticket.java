@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -22,9 +19,16 @@ public class Ticket {
     private LocalDate date;
     private LocalTime time;
     private String status;
-    private String pickPoint;
-    private String dropPoint;
-    private LocalDate bookingDate;
+    private String source;
+    private String destination;
+    private LocalDate journeyDate;
     private Integer bookedSeat;
+    private Integer fare;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Bus bus;
 
 }

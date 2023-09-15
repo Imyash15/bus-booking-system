@@ -27,7 +27,7 @@ public class UserController {
     public ResponseEntity<GeneralResponse> updateUser(@RequestBody User user, @PathVariable Integer userId) throws UserException{
 
         User user1 = userService.updateUser(user, userId);
-        return ResponseEntity.ok(new GeneralResponse(" Update Successfully",true,user1));
+        return ResponseEntity.ok(new GeneralResponse("Update Successfully",true,user1));
     }
 
     @GetMapping("/user/all")
