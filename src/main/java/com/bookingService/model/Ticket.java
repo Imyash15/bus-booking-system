@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Data
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ticketId;
     private LocalDate date;
     private LocalTime time;

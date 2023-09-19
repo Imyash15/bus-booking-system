@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RouteRepository extends JpaRepository<Route,Integer> {
+    public Route findByRouteFromAndRouteTo(String from ,String to);
 }

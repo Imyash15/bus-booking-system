@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Bus {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer busId;
     private String busName;
     private String driverName;

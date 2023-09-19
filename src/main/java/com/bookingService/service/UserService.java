@@ -14,8 +14,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user) {
-       return userRepository.save(user);
+    public User createUser(User user) throws UserException {
+        User registeredUser = userRepository.findByEmail(user.getEmail());
+        if (registeredUser !=null) throw new UserException(" User Already Registered With This Email "+ user.getEmail());
+        return userRepository.save(user);
     }
 
     public User getUserById(Integer userId) throws UserException {
@@ -39,8 +41,17 @@ public class UserService {
 
     }
 
-    public void deleteUser(Integer userID) throws UserException{
-        User user = userRepository.findById(userID).orElseThrow(() -> new UserException("Invalid User Id"));
-        userRepository.delete(user);
+    public User deleteUser(Integer userId) throws UserException{
+
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()){
+            User existingUser = user.get();
+            userRepository.delete(existingUser);
+
+            return existingUser;
+        }else
+            throw new UserException("User id not Available with this id "+ userId);
+
     }
 }

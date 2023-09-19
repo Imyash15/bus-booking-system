@@ -19,7 +19,7 @@ public class UserController {
 
 
     @PostMapping("/user/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<User> registerUser(@RequestBody User user) throws UserException {
         User user1 = userService.createUser(user);
         return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
@@ -44,8 +44,8 @@ public class UserController {
 
     @DeleteMapping("/user/delete/{userId}")
     public ResponseEntity<GeneralResponse> deleteUser(@PathVariable Integer userId) throws UserException {
-        userService.deleteUser(userId);
+        User user = userService.deleteUser(userId);
 
-        return ResponseEntity.ok(new GeneralResponse("Deleted Successfully",true,""));
+        return ResponseEntity.ok(new GeneralResponse(" User Deleted Successfully ",true,user));
     }
 }
