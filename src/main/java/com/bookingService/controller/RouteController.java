@@ -37,7 +37,7 @@ public class RouteController {
 
     @GetMapping("/route/{routeId}")
     public ResponseEntity<GeneralResponse> getRouteById(@PathVariable Integer routeId) throws RouteException {
-        Route route = routeService.getRoute(routeId);
+        Route route = routeService.getRouteById(routeId);
         return ResponseEntity.ok(new GeneralResponse("Fetched Successfully",true,route));
     }
 

@@ -33,7 +33,7 @@ public class RouteService {
         }
     }
 
-    public Route getRoute(int routeId) throws RouteException{
+    public Route getRouteById(int routeId) throws RouteException{
        return routeRepository.findById(routeId).orElseThrow(()-> new RouteException("There is no Route Present on this id "+ routeId));
     }
     

@@ -1,5 +1,6 @@
 package com.bookingService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,9 +26,11 @@ public class Ticket {
     private Integer bookedSeat;
     private Integer fare;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     private Bus bus;
 

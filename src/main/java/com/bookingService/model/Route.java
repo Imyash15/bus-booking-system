@@ -1,5 +1,6 @@
 package com.bookingService.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,8 @@ public class Route {
     private String routeTo;
     private Integer distance;
 
+
     @OneToMany(mappedBy = "route",cascade = CascadeType.ALL)
     private List<Bus> busList=new ArrayList<>();
-
-
 
 }

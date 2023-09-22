@@ -1,0 +1,3 @@
+
+#Tomcat exception Cannot call sendError() after the response has been committed?
+    I was creating a @ManyToOne and @OneToMany relationship. I added @JsonIgnore above the @ManyToOne and it solved the error.
