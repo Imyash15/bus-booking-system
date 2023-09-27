@@ -1,6 +1,6 @@
 package com.bookingService.exception;
 
-public class RouteException extends Exception{
+public class RouteException extends RuntimeException{
 
     public RouteException(String message){
         super(message);

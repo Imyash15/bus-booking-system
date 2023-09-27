@@ -18,7 +18,7 @@ public class BusService {
     @Autowired
     private RouteRepository routeRepository;
 
-    public Bus addBus(Bus bus) throws BusException {
+    public Bus addBus(Bus bus)  {
 
 //        Route route = new Route(bus.getRouteFrom(), bus.getRouteTo(), bus.getRouteById().getDistance());
 //        if (route == null) throw new BusException("Route is Not Valid");
@@ -40,7 +40,7 @@ public class BusService {
         return busRepository.save(bus);
     }
 
-    public Bus getBusById(int busId) throws BusException {
+    public Bus getBusById(int busId)  {
 
         Optional<Bus> busById = busRepository.findById(busId);
         if (busById.isPresent()){
@@ -49,7 +49,7 @@ public class BusService {
             throw new BusException("Bus is not available by this Id "+ busId);
     }
 
-    public List<Bus> getAllBus() throws BusException {
+    public List<Bus> getAllBus()  {
         List<Bus> allBuses = busRepository.findAll();
 
         if (allBuses.isEmpty()){
@@ -59,7 +59,7 @@ public class BusService {
             return allBuses;
     }
 
-    public Bus updateBus(Bus bus,int busId) throws BusException {
+    public Bus updateBus(Bus bus,int busId)  {
         Optional<Bus> existBus = busRepository.findById(busId);
 
         if (existBus.isEmpty()) throw  new BusException("Bus is not Available with this bus Id " +  busId);

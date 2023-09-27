@@ -19,12 +19,12 @@ public class UserController {
 
 
     @PostMapping("/user/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) throws UserException {
+    public ResponseEntity<User> registerUser(@RequestBody User user)  {
         User user1 = userService.createUser(user);
         return new ResponseEntity<>(user1, HttpStatus.CREATED);
     }
     @PutMapping("/user/{userId}")
-    public ResponseEntity<GeneralResponse> updateUser(@RequestBody User user, @PathVariable Integer userId) throws UserException{
+    public ResponseEntity<GeneralResponse> updateUser(@RequestBody User user, @PathVariable Integer userId){
 
         User user1 = userService.updateUser(user, userId);
         return ResponseEntity.ok(new GeneralResponse("Update Successfully",true,user1));
@@ -37,13 +37,13 @@ public class UserController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<GeneralResponse> getUserById(@PathVariable Integer userId) throws UserException{
+    public ResponseEntity<GeneralResponse> getUserById(@PathVariable Integer userId) {
         User userById = userService.getUserById(userId);
         return ResponseEntity.ok(new GeneralResponse("Successfully Fetched",true,userById));
     }
 
     @DeleteMapping("/user/delete/{userId}")
-    public ResponseEntity<GeneralResponse> deleteUser(@PathVariable Integer userId) throws UserException {
+    public ResponseEntity<GeneralResponse> deleteUser(@PathVariable Integer userId){
         User user = userService.deleteUser(userId);
 
         return ResponseEntity.ok(new GeneralResponse("User Deleted Successfully",true,user));

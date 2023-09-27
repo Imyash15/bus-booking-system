@@ -16,7 +16,7 @@ public class RouteService {
     @Autowired
     private RouteRepository routeRepository;
 
-    public Route addRoute(Route route) throws RouteException {
+    public Route addRoute(Route route)  {
 
         Route newRoute = routeRepository.findByRouteFromAndRouteTo(route.getRouteFrom(), route.getRouteTo());
 
@@ -33,11 +33,11 @@ public class RouteService {
         }
     }
 
-    public Route getRouteById(int routeId) throws RouteException{
+    public Route getRouteById(int routeId) {
        return routeRepository.findById(routeId).orElseThrow(()-> new RouteException("There is no Route Present on this id "+ routeId));
     }
     
-    public List<Route> getAllRoute () throws RouteException {
+    public List<Route> getAllRoute () {
         List<Route> routes = routeRepository.findAll();
 
         if (routes.isEmpty()) {
@@ -47,7 +47,7 @@ public class RouteService {
 
     }
 
-    public Route updateRoute(Route route,int routeId) throws RouteException {
+    public Route updateRoute(Route route,int routeId)  {
 
         Optional<Route> existedRoute = routeRepository.findById(routeId);
 
@@ -71,7 +71,7 @@ public class RouteService {
 
     }
     
-    public Route deleteRoute(int routeId) throws RouteException{
+    public Route deleteRoute(int routeId) {
 
         Optional<Route> route = routeRepository.findById(routeId);
 

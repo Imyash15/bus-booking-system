@@ -14,13 +14,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user) throws UserException {
+    public User createUser(User user){
         User registeredUser = userRepository.findByEmail(user.getEmail());
         if (registeredUser !=null) throw new UserException(" User Already Registered With This Email "+ user.getEmail());
         return userRepository.save(user);
     }
 
-    public User getUserById(Integer userId) throws UserException {
+    public User getUserById(Integer userId) {
          return userRepository.findById(userId).orElseThrow(() -> new UserException("Invalid User id"));
     }
 
@@ -28,7 +28,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User updateUser(User user,Integer userId) throws UserException {
+    public User updateUser(User user,Integer userId){
         User user1 = userRepository.findById(userId).orElseThrow(() -> new UserException("Invalid User Id"));
 
         user1.setFirstName(user.getFirstName());
@@ -41,7 +41,7 @@ public class UserService {
 
     }
 
-    public User deleteUser(Integer userId) throws UserException{
+    public User deleteUser(Integer userId){
 
         Optional<User> user = userRepository.findById(userId);
 
