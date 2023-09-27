@@ -46,6 +46,6 @@ public class UserController {
     public ResponseEntity<GeneralResponse> deleteUser(@PathVariable Integer userId) throws UserException {
         User user = userService.deleteUser(userId);
 
-        return ResponseEntity.ok(new GeneralResponse(" User Deleted Successfully ",true,user));
+        return ResponseEntity.ok(new GeneralResponse("User Deleted Successfully",true,user));
     }
 }
