@@ -1,7 +1,6 @@
 package com.bookingService.controller;
 
 import com.bookingService.exception.GeneralResponse;
-import com.bookingService.exception.RouteException;
 import com.bookingService.model.Route;
 import com.bookingService.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +17,31 @@ public class RouteController {
     private RouteService routeService;
 
     @PostMapping("/route/add")
-    public ResponseEntity<Route> addRoute(@RequestBody Route route) throws RouteException {
+    public ResponseEntity<Route> addRoute(@RequestBody Route route){
         Route newRoute = routeService.addRoute(route);
         return new ResponseEntity<>(route, HttpStatus.CREATED);
     }
 
     @PutMapping("/route/update/{routeId}")
-    public ResponseEntity<GeneralResponse> updateRoute(@RequestBody Route route,@PathVariable Integer routeId) throws RouteException {
+    public ResponseEntity<GeneralResponse> updateRoute(@RequestBody Route route,@PathVariable Integer routeId){
         Route updatedRoute = routeService.updateRoute(route, routeId);
         return ResponseEntity.ok(new GeneralResponse("Updated Successfully",true,updatedRoute));
     }
 
     @GetMapping("/route/all")
-    public ResponseEntity<List<Route>> getAllRoutes() throws RouteException {
+    public ResponseEntity<List<Route>> getAllRoutes(){
         List<Route> allRoute = routeService.getAllRoute();
         return ResponseEntity.ok(allRoute);
     }
 
     @GetMapping("/route/{routeId}")
-    public ResponseEntity<GeneralResponse> getRouteById(@PathVariable Integer routeId) throws RouteException {
+    public ResponseEntity<GeneralResponse> getRouteById(@PathVariable Integer routeId){
         Route route = routeService.getRouteById(routeId);
         return ResponseEntity.ok(new GeneralResponse("Fetched Successfully",true,route));
     }
 
     @DeleteMapping("/route/delete/{routeId}")
-    public ResponseEntity<GeneralResponse> deleteRoute(@PathVariable Integer routeId) throws RouteException {
+    public ResponseEntity<GeneralResponse> deleteRoute(@PathVariable Integer routeId){
         Route deleteRoute = routeService.deleteRoute(routeId);
         return ResponseEntity.ok(new GeneralResponse("Deleted Successfully",true,deleteRoute));
     }

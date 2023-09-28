@@ -1,6 +1,6 @@
 package com.bookingService.service;
 
-import com.bookingService.exception.BusException;
+import com.bookingService.exception.ResourceNotFoundException;
 import com.bookingService.model.Bus;
 import com.bookingService.model.Route;
 import com.bookingService.repository.BusRepository;
@@ -21,7 +21,7 @@ public class BusService {
     public Bus addBus(Bus bus)  {
 
 //        Route route = new Route(bus.getRouteFrom(), bus.getRouteTo(), bus.getRouteById().getDistance());
-//        if (route == null) throw new BusException("Route is Not Valid");
+//        if (route == null) throw new ResourceNotFoundException("Route is Not Valid");
 //        //adding route for this new bus
 //        bus.setRoute(route);
 //
@@ -30,7 +30,7 @@ public class BusService {
 
         Route route = routeRepository.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
 
-        if (route==null) throw  new BusException("Route is not valid");
+        if (route==null) throw  new ResourceNotFoundException("Route is not valid");
 
         bus.setRoute(route);
 
@@ -46,14 +46,14 @@ public class BusService {
         if (busById.isPresent()){
             return busById.get();
         }else
-            throw new BusException("Bus is not available by this Id "+ busId);
+            throw new ResourceNotFoundException("Bus is not available by this Id "+ busId);
     }
 
     public List<Bus> getAllBus()  {
         List<Bus> allBuses = busRepository.findAll();
 
         if (allBuses.isEmpty()){
-            throw  new BusException("No Buses Available");
+            throw  new ResourceNotFoundException("No Buses Available");
 
         }else
             return allBuses;
@@ -62,14 +62,14 @@ public class BusService {
     public Bus updateBus(Bus bus,int busId)  {
         Optional<Bus> existBus = busRepository.findById(busId);
 
-        if (existBus.isEmpty()) throw  new BusException("Bus is not Available with this bus Id " +  busId);
+        if (existBus.isEmpty()) throw  new ResourceNotFoundException("Bus is not Available with this bus Id " +  busId);
 
         Bus newBus = existBus.get();
 
         Route route = routeRepository.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
 
         if (route ==null){
-            throw new BusException("Bus is not available on this route  ");
+            throw new ResourceNotFoundException("Bus is not available on this route  ");
         }else {
             newBus.setBusName(bus.getBusName());
             newBus.setBusType(bus.getBusType());

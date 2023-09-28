@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,16 +23,19 @@ public class Ticket {
     private String status;
     private String source;
     private String destination;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate journeyDate;
+
     private Integer bookedSeat;
     private Integer fare;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User user;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Bus bus;
 
 }

@@ -1,7 +1,6 @@
 package com.bookingService.controller;
 
 import com.bookingService.exception.GeneralResponse;
-import com.bookingService.exception.UserException;
 import com.bookingService.model.User;
 import com.bookingService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

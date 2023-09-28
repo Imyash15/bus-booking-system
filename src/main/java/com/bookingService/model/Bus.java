@@ -43,10 +43,10 @@ public class Bus {
     private Integer fare;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Route route;
 
-    @OneToMany(mappedBy = "bus",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bus",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Ticket> ticketList=new ArrayList<>();
 
   }

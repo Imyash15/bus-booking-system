@@ -1,6 +1,6 @@
 package com.bookingService.service;
 
-import com.bookingService.exception.UserException;
+import com.bookingService.exception.ResourceNotFoundException;
 import com.bookingService.model.User;
 import com.bookingService.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     @Test
-    void testCreateUser() throws UserException {
+    void testCreateUser() throws ResourceNotFoundException {
 
         //create user object
         User expectedUser=new User();
@@ -60,13 +60,13 @@ class UserServiceTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(new User());
 
         //Act  and Assert
-        assertThrows(UserException.class,()-> userService.createUser(user));
+        assertThrows(ResourceNotFoundException.class,()-> userService.createUser(user));
 
     }
 
 
     @Test
-    void testGetUserById() throws UserException {
+    void testGetUserById() throws ResourceNotFoundException {
 
         User user = new User();
         user.setUserId(user.getUserId());
@@ -88,7 +88,7 @@ class UserServiceTest {
 
         when(userRepository.findById(user.getUserId())).thenReturn(Optional.empty());
 
-        assertThrows(UserException.class,()-> userService.getUserById(user.getUserId()));
+        assertThrows(ResourceNotFoundException.class,()-> userService.getUserById(user.getUserId()));
 
 
     }
@@ -126,7 +126,7 @@ class UserServiceTest {
     }
 
     @Test
-    void testUpdateUser() throws UserException {
+    void testUpdateUser() throws ResourceNotFoundException {
         int userId=1;
         //Crete User Object
         User existingdUser= new User();
@@ -164,12 +164,12 @@ class UserServiceTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        assertThrows(UserException.class,()-> userService.updateUser(user,userId));
+        assertThrows(ResourceNotFoundException.class,()-> userService.updateUser(user,userId));
 
     }
 
     @Test
-    void testDeleteUser() throws UserException {
+    void testDeleteUser() throws ResourceNotFoundException {
 
         //create User object
         User existingUser= new User();
@@ -202,7 +202,7 @@ class UserServiceTest {
         when(userRepository.findById(existingUser.getUserId())).thenReturn(Optional.empty());
 
         //Assert
-        assertThrows(UserException.class,()-> userService.deleteUser(existingUser.getUserId()));
+        assertThrows(ResourceNotFoundException.class,()-> userService.deleteUser(existingUser.getUserId()));
 
 
 

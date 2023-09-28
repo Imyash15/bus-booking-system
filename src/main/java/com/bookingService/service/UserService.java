@@ -1,6 +1,6 @@
 package com.bookingService.service;
 
-import com.bookingService.exception.UserException;
+import com.bookingService.exception.ResourceNotFoundException;
 import com.bookingService.model.User;
 import com.bookingService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ public class UserService {
 
     public User createUser(User user){
         User registeredUser = userRepository.findByEmail(user.getEmail());
-        if (registeredUser !=null) throw new UserException(" User Already Registered With This Email "+ user.getEmail());
+        if (registeredUser !=null) throw new ResourceNotFoundException(" User Already Registered With This Email "+ user.getEmail());
         return userRepository.save(user);
     }
 
     public User getUserById(Integer userId) {
-         return userRepository.findById(userId).orElseThrow(() -> new UserException("Invalid User id"));
+         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Invalid User id"));
     }
 
     public List<User> getAllUser(){
@@ -29,7 +29,7 @@ public class UserService {
     }
 
     public User updateUser(User user,Integer userId){
-        User user1 = userRepository.findById(userId).orElseThrow(() -> new UserException("Invalid User Id"));
+        User user1 = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Invalid User Id"));
 
         user1.setFirstName(user.getFirstName());
         user1.setLastName(user.getLastName());
@@ -51,7 +51,7 @@ public class UserService {
 
             return existingUser;
         }else
-            throw new UserException("User id not Available with this id "+ userId);
+            throw new ResourceNotFoundException("User id not Available with this id "+ userId);
 
     }
 }

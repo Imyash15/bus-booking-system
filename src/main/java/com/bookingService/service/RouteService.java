@@ -1,6 +1,6 @@
 package com.bookingService.service;
 
-import com.bookingService.exception.RouteException;
+import com.bookingService.exception.ResourceNotFoundException;
 import com.bookingService.model.Bus;
 import com.bookingService.model.Route;
 import com.bookingService.repository.RouteRepository;
@@ -20,7 +20,7 @@ public class RouteService {
 
         Route newRoute = routeRepository.findByRouteFromAndRouteTo(route.getRouteFrom(), route.getRouteTo());
 
-        if (newRoute!=null) throw new RouteException("Route "+ newRoute.getRouteFrom() +" to "+ newRoute.getRouteTo() +" is already Present ");
+        if (newRoute!=null) throw new ResourceNotFoundException("Route "+ newRoute.getRouteFrom() +" to "+ newRoute.getRouteTo() +" is already Present ");
 
         List<Bus> buses= new ArrayList<>();
 
@@ -29,19 +29,19 @@ public class RouteService {
             return routeRepository.save(route);
 
         }else {
-            throw new RouteException("This route is not Available");
+            throw new ResourceNotFoundException("This route is not Available");
         }
     }
 
     public Route getRouteById(int routeId) {
-       return routeRepository.findById(routeId).orElseThrow(()-> new RouteException("There is no Route Present on this id "+ routeId));
+       return routeRepository.findById(routeId).orElseThrow(()-> new ResourceNotFoundException("There is no Route Present on this id "+ routeId));
     }
     
     public List<Route> getAllRoute () {
         List<Route> routes = routeRepository.findAll();
 
         if (routes.isEmpty()) {
-            throw new RouteException("No Route Available");
+            throw new ResourceNotFoundException("No Route Available");
         }else
             return routes;
 
@@ -56,7 +56,7 @@ public class RouteService {
 
             List<Bus> busList = newRoute.getBusList();
 
-            if (!busList.isEmpty()) throw new RouteException("Can't Update RunningRoute ! Buses are already scheduled on this route  ");
+            if (!busList.isEmpty()) throw new ResourceNotFoundException("Can't Update RunningRoute ! Buses are already scheduled on this route  ");
 
             newRoute.setRouteFrom(route.getRouteFrom());
             newRoute.setRouteTo(route.getRouteTo());
@@ -67,7 +67,7 @@ public class RouteService {
 
 
         }else
-            throw  new RouteException("Route doesn't exist on this routeId "+ routeId);
+            throw  new ResourceNotFoundException("Route doesn't exist on this routeId "+ routeId);
 
     }
     
@@ -81,7 +81,7 @@ public class RouteService {
 
             return existingRoute;
         }else
-            throw new RouteException("Route is not available on this routeId "+ routeId);
+            throw new ResourceNotFoundException("Route is not available on this routeId "+ routeId);
     }
 
 

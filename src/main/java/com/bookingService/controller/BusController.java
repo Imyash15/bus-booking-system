@@ -1,6 +1,5 @@
 package com.bookingService.controller;
 
-import com.bookingService.exception.BusException;
 import com.bookingService.exception.GeneralResponse;
 import com.bookingService.model.Bus;
 import com.bookingService.service.BusService;
