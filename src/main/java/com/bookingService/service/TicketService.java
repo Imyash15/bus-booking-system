@@ -65,4 +65,35 @@ public class TicketService {
 
         return ticketRepository.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Tickets not found by this Ticket Id " + ticketId));
     }
+
+    public Ticket updateTicket(Ticket ticket,Integer ticketId){
+
+
+        Ticket newTicket = ticketRepository.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket is not available with this id " + ticketId));
+        //find bus
+        Integer busId =newTicket.getBus().getBusId();
+        Bus bus = busRepository.findById(busId).orElseThrow(() -> new ResourceNotFoundException("Bus not found "));
+
+        Integer availableSeat = bus.getAvailableSeat();
+
+        Integer bookedSeat = ticket.getBookedSeat();
+        if (availableSeat < bookedSeat) throw  new ResourceNotFoundException("Only "+ availableSeat + " seats are available");
+
+        availableSeat -= bookedSeat;
+
+        bus.setAvailableSeat(availableSeat);
+
+
+        newTicket.setDate(LocalDate.now());
+        newTicket.setTime(LocalTime.now());
+        newTicket.setJourneyDate(ticket.getJourneyDate());
+        newTicket.setBookedSeat(bookedSeat);
+        newTicket.setFare(bus.getFare() * bookedSeat);
+        newTicket.setSource(ticket.getSource());
+        newTicket.setDestination(ticket.getDestination());
+        newTicket.setBus(bus);
+
+        return ticketRepository.save(newTicket);
+
+    }
 }

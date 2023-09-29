@@ -40,5 +40,13 @@ public class TicketController {
         return ResponseEntity.ok(new GeneralResponse("Successfully Fetched",true,ticketById));
     }
 
+    @PutMapping("/ticket/update/{ticketId}")
+    public ResponseEntity<GeneralResponse> updateTicket(@RequestBody Ticket ticket,@PathVariable Integer ticketId){
+
+        Ticket updatedTicket = ticketService.updateTicket(ticket, ticketId);
+
+        return ResponseEntity.ok(new GeneralResponse("Updated Successfully", true,updatedTicket));
+    }
+
 
 }
