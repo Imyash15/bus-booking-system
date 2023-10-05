@@ -96,4 +96,35 @@ public class TicketService {
         return ticketRepository.save(newTicket);
 
     }
+
+    public List<Ticket>  getByUserUserId(Integer userId){
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not Found"));
+
+        List<Ticket> ticketList = user.getTicketList();
+
+        if (ticketList.isEmpty()) throw new ResourceNotFoundException("Tickets not Found ");
+
+        return ticketList;
+
+
+    }
+
+    public Ticket deleteTicket(Integer ticketId){
+
+        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException("Ticket not Found by id"));
+        //Check Dates
+         if (ticket.getJourneyDate().isBefore(LocalDate.now())) throw new ResourceNotFoundException("ticket already expired");
+
+        Integer availableSeat = ticket.getBus().getAvailableSeat();
+
+        ticket.getBus().setAvailableSeat(availableSeat + ticket.getBookedSeat());
+
+        Bus bus = ticket.getBus();
+        busRepository.save(bus);
+
+        ticketRepository.delete(ticket);
+
+        return ticket;
+    }
 }

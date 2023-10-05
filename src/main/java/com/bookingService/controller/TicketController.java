@@ -49,4 +49,20 @@ public class TicketController {
     }
 
 
+    @GetMapping("/ticket/user/{userId}")
+    public ResponseEntity<GeneralResponse> getByTicketByUserId(@PathVariable Integer userId){
+        List<Ticket> byUserUserId = ticketService.getByUserUserId(userId);
+
+        return ResponseEntity.ok(new GeneralResponse("Successfully Fetched By UserID "+ userId ,true,byUserUserId));
+    }
+
+
+    @DeleteMapping("/ticket/delete/{ticketId}")
+    public ResponseEntity<GeneralResponse> deleteTicket(@PathVariable Integer ticketId) {
+
+        Ticket ticket = ticketService.deleteTicket(ticketId);
+
+        return ResponseEntity.ok(new GeneralResponse("Ticket Deleted Successfully",true,ticket));
+    }
+
 }
