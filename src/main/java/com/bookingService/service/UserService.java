@@ -4,6 +4,7 @@ import com.bookingService.exception.ResourceNotFoundException;
 import com.bookingService.model.User;
 import com.bookingService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +15,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public User createUser(User user){
         User registeredUser = userRepository.findByEmail(user.getEmail());
         if (registeredUser !=null) throw new ResourceNotFoundException(" User Already Registered With This Email "+ user.getEmail());
+
+        String hashPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashPassword);
         return userRepository.save(user);
     }
 
@@ -34,7 +41,7 @@ public class UserService {
         user1.setFirstName(user.getFirstName());
         user1.setLastName(user.getLastName());
         user1.setEmail(user.getEmail());
-        user1.setPassword(user.getPassword());
+        user1.setPassword(passwordEncoder.encode(user.getPassword()));
         user1.setMobile(user.getMobile());
         user1.setRoles(user.getRoles());
 
