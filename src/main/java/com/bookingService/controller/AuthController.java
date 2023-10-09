@@ -36,7 +36,7 @@ public class AuthController {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword()));
         }catch (BadCredentialsException e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.UNAUTHORIZED);
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
