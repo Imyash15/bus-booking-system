@@ -28,7 +28,6 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/login").permitAll()
-//                .antMatchers("/login").permitAll()
                 .antMatchers("/api/v1/**").authenticated()
                 .and()
                 .sessionManagement()
